@@ -257,7 +257,7 @@ class CurrentGameClient(GameClient):
         if self._base_address is not None:
             return self._base_address
 
-        addr = await self.pattern_scan(rb"\x48\x8B.....\x48\x8B\xD9\x80\xB8\x45")
+        addr = await self.pattern_scan(rb"\x48\x8b.....\x48\x8b.\x80\xb8....\x00\x74.\x4c\x8b")
         offset = await self.read_typed(addr + 3, Primitive.int32)
 
         self._base_address = await self.read_typed(addr + 7 + offset, Primitive.uint64)
